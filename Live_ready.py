@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 from pprint import pprint
 
 #####################################################
-#
+#NMR draakoni treenimine
 #####################################################
 
 def NORMAL_WEATHER_ADVANCED(knight):
@@ -36,7 +36,7 @@ def NORMAL_WEATHER_ADVANCED(knight):
     return draakon
 
 #####################################################
-#
+#Ilma põhjal draakoni valik
 #####################################################
 
 def WEATHER(fight):
@@ -71,6 +71,9 @@ def WEATHER(fight):
     result_array.append(logging)
     return result_array
 
+#####################################################
+#Logifaili loomine
+#####################################################
 
 def LOGGING(result_array):
     logfile= open ("logfile.txt","w")
@@ -81,10 +84,19 @@ def LOGGING(result_array):
     
     
 #####################################################
-#
+#Põhi loop, sisendinfo kontroll
 #####################################################
     
-def MAIN(number_of_battles,result_array):
+def MAIN(result_array):
+    while True:    
+        try:
+            number_of_battles = int(input("Sisesta soovitud lahingute arv, positiivne täisarv: "))
+            if number_of_battles <0:
+                print ("Tegu ei ole positiivse täisarvuga, proovi uuesti")
+                continue
+            break
+        except ValueError:
+            print("Tegu ei ole täisarvuga, proovi uuesti")
     i=0
     
     while i<number_of_battles:
@@ -93,21 +105,14 @@ def MAIN(number_of_battles,result_array):
         i+=1
     LOGGING(result_array)   # logi faili loomine
    
-
-
+#####################################################
+#Globaal muutujad
+#####################################################
+    
 fighturl = "http://www.dragonsofmugloar.com/api/game"
 weatherurl = "http://www.dragonsofmugloar.com/weather/api/report/"
 result_array=[]
-while True:    
-    try:
-        number_of_battles = int(input("Sisesta soovitud lahingute arv, positiivne täisarv: "))
-        if number_of_battles <0:
-            print ("Tegu ei ole positiivse täisarvuga, proovi uuesti")
-            #continue
-        break
-    except ValueError:
-        print("Tegu ei ole täisarvuga, proovi uuesti")
-MAIN(number_of_battles,result_array)
+MAIN(result_array)
 
     
 
